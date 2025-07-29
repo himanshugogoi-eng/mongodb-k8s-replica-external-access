@@ -1,0 +1,24 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: mongo-cluster
+  namespace: mongo
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "6.0.13"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: admin
+      db: admin
+      passwordSecretRef:
+        name: mongodb-password
+      roles:
+        - name: root
+          db: admin
+  additionalMongodConfig:
+    net:
+      bindIpAll: true
+
