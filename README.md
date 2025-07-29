@@ -101,14 +101,28 @@ kubectl apply -f mongodb-external-service.yaml
 minikube ip
 ```
 ---
-### 7. Connect from MongoDB Compass or Shell
+
+### 7. Use Minikube service to access node port
+Instead of accessing the NodePort manually, use:
+```bash
+minikube service mongo-external -n mongo
+```
+This will:
+
+> Automatically open a tunnel to the exposed port
+
+> Show the correct external URL like:
+http://127.0.0.1:<some_port>
+You can then connect from MongoDB Compass or other such tools using this port.
+---
+### 8. Connect from MongoDB Compass or Shell
 Replace the IP and password below:
 
 ```bash
-mongodb://admin:<YourStrongPassword>@<MinikubeIP>:32019/?authSource=admin&replicaSet=mongo-cluster
+mongodb://admin:<password>@127.0.0.1:<some_port>/?authSource=admin&directConnection=true
 ```
 ---
-### 8. Clean Up Resources (Optional)
+### 9. Clean Up Resources (Optional)
 ```bash
 kubectl delete -f mongodb-external-service.yaml
 kubectl delete -f mongodb-replicaset.yaml
