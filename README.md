@@ -109,10 +109,11 @@ minikube service mongo-external -n mongo
 ```
 This will:
 
-> Automatically open a tunnel to the exposed port
+* Automatically open a tunnel to the exposed port
 
-> Show the correct external URL like:
+* Show the correct external URL like:
 http://127.0.0.1:<some_port>
+
 You can then connect from MongoDB Compass or other such tools using this port.
 ---
 ### 8. Connect from MongoDB Compass or Shell
