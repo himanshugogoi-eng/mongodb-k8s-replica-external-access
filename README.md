@@ -115,6 +115,7 @@ This will:
 http://127.0.0.1:<some_port>
 
 You can then connect from MongoDB Compass or other such tools using this port.
+
 ---
 ### 8. Connect from MongoDB Compass or Shell
 Replace the IP and password below:
