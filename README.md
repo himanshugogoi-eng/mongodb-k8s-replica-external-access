@@ -22,7 +22,7 @@ kubectl create namespace mongo
 ```
 ---
 
-2. Install MongoDB Community Operator via Helm
+### 2. Install MongoDB Community Operator via Helm
 ```bash
 helm repo add mongodb https://mongodb.github.io/helm-charts
 helm repo update
@@ -30,7 +30,7 @@ helm install mongodb-operator mongodb/community-operator -n mongo
 ```
 ---
 
-3. Create MongoDB Admin Secret
+### 3. Create MongoDB Admin Secret
 ```bash
 kubectl -n mongo create secret generic mongodb-password \
   --from-literal=MONGODB_DATABASE=admin \
@@ -38,7 +38,8 @@ kubectl -n mongo create secret generic mongodb-password \
   --from-literal=MONGODB_PASSWORD=YourStrongPassword
 ```
 ----  
-4. Deploy MongoDB ReplicaSet Resource
+### 4. Deploy MongoDB ReplicaSet Resource
+
 Save the following as mongodb-replicaset.yaml:
 
 ```bash
@@ -72,7 +73,7 @@ Apply it:
 kubectl apply -f mongodb-replicaset.yaml
 ```
 ---
-5. Expose One Replica Node via NodePort
+### 5. Expose One Replica Node via NodePort
 Create mongodb-external-service.yaml:
 ```bash
 apiVersion: v1
@@ -95,19 +96,19 @@ Apply it:
 kubectl apply -f mongodb-external-service.yaml
 ```
 ---
-6. Get Minikube Node IP
+### 6. Get Minikube Node IP
 ```bash
 minikube ip
 ```
 ---
-7. Connect from MongoDB Compass or Shell
+### 7. Connect from MongoDB Compass or Shell
 Replace the IP and password below:
 
 ```bash
 mongodb://admin:<YourStrongPassword>@<MinikubeIP>:32019/?authSource=admin&replicaSet=mongo-cluster
 ```
 ---
-8. Clean Up Resources (Optional)
+### 8. Clean Up Resources (Optional)
 ```bash
 kubectl delete -f mongodb-external-service.yaml
 kubectl delete -f mongodb-replicaset.yaml
