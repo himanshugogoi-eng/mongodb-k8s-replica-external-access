@@ -33,9 +33,8 @@ helm install mongodb-operator mongodb/community-operator -n mongo
 ### 3. Create MongoDB Admin Secret
 ```bash
 kubectl -n mongo create secret generic mongodb-password \
-  --from-literal=MONGODB_DATABASE=admin \
-  --from-literal=MONGODB_USERNAME=admin \
-  --from-literal=MONGODB_PASSWORD=YourStrongPassword
+  --from-literal=username=admin \
+  --from-literal=password=Pass@123
 ```
 ----  
 ### 4. Deploy MongoDB ReplicaSet Resource
@@ -60,12 +59,13 @@ spec:
       db: admin
       passwordSecretRef:
         name: mongodb-password
+      scramCredentialsSecretName: admin-scram-credentials
       roles:
         - name: root
           db: admin
   additionalMongodConfig:
     net:
-      bindIpAll: true
+      bindIpAll: true       
 ```	  
 Apply it:
 
