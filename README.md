@@ -86,8 +86,35 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: mongo-cluster-0
   ports:
-    - name: mongo
-      port: 27017
+    - port: 27017
+      targetPort: 27017
+      nodePort: 32017  # You can change this, range 30000–32767
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-external-1
+  namespace: mongo
+spec:
+  type: NodePort
+  selector:
+    statefulset.kubernetes.io/pod-name: mongo-cluster-1
+  ports:
+    - port: 27017
+      targetPort: 27017
+      nodePort: 32018
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-external-2
+  namespace: mongo
+spec:
+  type: NodePort
+  selector:
+    statefulset.kubernetes.io/pod-name: mongo-cluster-2
+  ports:
+    - port: 27017
       targetPort: 27017
       nodePort: 32019
 ```
